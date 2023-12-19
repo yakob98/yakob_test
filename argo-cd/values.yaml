@@ -1,0 +1,28 @@
+global:
+  image:
+    repository: registry.i-3.my.id:5500/argo-cd/argocd
+  imagePullSecrets: 
+    - name: william-nexus-creds
+
+argo-cd:
+  # redis:
+    # image:
+    #   repository: localhost:5000/argo-cd/images
+    #   tag: latest
+  # redis-ha:
+  #   enabled: true
+  configs:
+    rbac:
+      policy.default: role:readonly
+      policy.csv: |
+        g, william, role:admin
+  
+  dex:
+    image:
+      repository: registry.i-3.my.id:5500/argo-cd/dex
+      tag: v2.37.0
+
+  redis:
+    image:
+      repository: registry.i-3.my.id:5500/argo-cd/redis
+      tag: 7.0.13-alpine
